@@ -31,6 +31,7 @@ const PIPELINE_PATTERNS_CONFIG = {
 const MIXER_CONFIG = {
   patterns: {
     // insert any base patterns not from opt in
+    "/*": "adobe_productbus",
   },
   backends: {
     adobe_productbus: {
@@ -44,7 +45,7 @@ const pipelinePatternEntry = (record = {}) => {
   const { customerId, storeCode, storeViewCode } = record;
   return {
     [`/${customerId}/{% raw %}{{urlKey}}{% endraw %}`]: {
-      pageType: "product",
+      // pageType: "product",
       storeCode,
       storeViewCode,
     },
@@ -116,8 +117,8 @@ const prepareRecord = (record) => {
       },
       mixerConfig: {
         patterns: {
-          ...MIXER_CONFIG.patterns,
           ...mixerPatterns,
+          ...MIXER_CONFIG.patterns,
         },
         backends: {
           ...MIXER_CONFIG.backends,
